@@ -1,0 +1,5 @@
+GlobalExceptionHandler.java : La classe @ControllerAdvice qui capture les erreurs.
+
+ResourceNotFoundException.java : Ton erreur perso quand un produit n'existe pas.
+
+ErrorDetails.java : Le format JSON de tes messages d'erreur.

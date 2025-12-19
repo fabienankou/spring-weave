@@ -1,0 +1,7 @@
+ProductRequest.java : Ce que tu envoies dans le corps du POST.
+
+ProductResponse.java : Ce que le serveur renvoie (sans les infos inutiles).
+
+LoginRequest.java : Email + Password pour Postman.
+
+TokenResponse.java : Le Token JWT renvoyé après login.

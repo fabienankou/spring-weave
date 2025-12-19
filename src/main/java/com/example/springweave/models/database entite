@@ -1,0 +1,5 @@
+Product.java : L'entité avec @Entity.
+
+User.java : L'entité pour les utilisateurs.
+
+Role.java : Enum ou classe pour les rôles (ADMIN, USER)

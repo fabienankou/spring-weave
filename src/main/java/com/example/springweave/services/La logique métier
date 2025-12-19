@@ -1,0 +1,5 @@
+ProductService.java : Interface définissant les méthodes.
+
+ProductServiceImpl.java : L'implémentation concrète (optionnel, tu peux mettre tout dans une seule classe ProductService.java pour simplifier au début).
+
+AuthService.java : Logique de vérification des mots de passe.

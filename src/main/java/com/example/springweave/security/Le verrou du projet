@@ -1,0 +1,5 @@
+JwtService.java : Pour générer et lire les tokens.
+
+JwtAuthenticationFilter.java : Le filtre qui intercepte chaque requête.
+
+SecurityConfig.java : La classe où tu définis quelles routes sont publiques ou privées.

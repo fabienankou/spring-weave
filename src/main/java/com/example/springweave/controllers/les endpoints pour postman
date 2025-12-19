@@ -1,0 +1,5 @@
+ProductController.java : Toutes les routes /api/products.
+
+AuthController.java : Pour le login et le register.
+
+OrderController.java : Pour la gestion des commandes.
