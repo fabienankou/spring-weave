@@ -110,5 +110,3 @@ Une fois le serveur lancé, la documentation interactive Swagger est accessible 
 * **IDs** : Protection contre l'énumération par des formats sécurisés.
 
 ---
-
-**Souhaites-tu que je prépare le fichier `docker-compose.yml` de base pour que l'ISR 1 puisse commencer à configurer la base de données PostgreSQL ?**
