@@ -1,0 +1,30 @@
+services:
+  # config de la base de donne postgre
+  db:
+    image: postgres:15-alpine
+    container_name: shopivers-db
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: shopivers_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - shopivers_db_data:/var/lib/postgresql/data
+
+  # Interface graphique pour la  base de donnees
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: shopivers-pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@shopivers.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "8081:80"
+    depends_on:
+      - db
+
+volumes:
+  shopivers_db_data:
