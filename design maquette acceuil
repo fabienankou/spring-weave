@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHOPIVERS | Future of Shopping</title>
+    <style>
+        :root {
+            --bg-dark: #0a0a0c;
+            --accent-cyan: #00f2ff;
+            --accent-purple: #7000ff;
+            --glass: rgba(255, 255, 255, 0.05);
+            --text: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text);
+            overflow-x: hidden;
+        }
+
+        /* Effet de fond néon */
+        .glow-bg {
+            position: fixed;
+            top: -10%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, var(--accent-purple) 0%, transparent 70%);
+            filter: blur(80px);
+            opacity: 0.3;
+            z-index: -1;
+        }
+
+        /* Navbar Glassmorphism */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 10%;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--accent-cyan), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: #aaa;
+            max-width: 600px;
+        }
+
+        .cta-button {
+            margin-top: 30px;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, var(--accent-purple), var(--accent-cyan));
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            text-transform: uppercase;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--accent-cyan);
+        }
+
+        /* Grille de Produits Réactive */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 50px 10%;
+        }
+
+        .product-card {
+            background: var(--glass);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 20px;
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        .product-card:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background: #1a1a1d;
+            border-radius: 15px;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="glow-bg"></div>
+    
+    <nav>
+        <div class="logo">SHOPIVERS</div>
+        <div class="menu">
+            <span>Panier (0)</span>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>L'Élite du Futur</h1>
+        <p>Découvrez une collection technologique exclusive. Livraison instantanée dans tout le métavers.</p>
+        <button class="cta-button">Explorer la collection</button>
+    </section>
+
+    <div class="product-grid">
+        <div class="product-card">
+            <div class="product-image"></div>
+            <h3>Cyber-Watch v.4</h3>
+            <p>299.00 €</p>
+            <button class="cta-button" style="padding: 10px 20px; font-size: 0.8rem;">Ajouter</button>
+        </div>
+        <div class="product-card">
+            <div class="product-image"></div>
+            <h3>Neural-Link Buds</h3>
+            <p>150.00 €</p>
+            <button class="cta-button" style="padding: 10px 20px; font-size: 0.8rem;">Ajouter</button>
+        </div>
+    </div>
+</body>
+</html>
