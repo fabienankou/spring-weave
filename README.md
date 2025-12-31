@@ -1,4 +1,4 @@
-# 🛒 SHOPIVERS — Plateforme E-Commerce
+# WEAVE  Plateforme E-Commerce
 
 **SHOPIVERS** est une solution complète de vente en ligne. Le projet s'appuie sur un backend **Spring Boot**, un frontend moderne et une infrastructure robuste pilotée par **Docker** et **Kubernetes**.
 
@@ -51,10 +51,10 @@ Chaque membre de l'équipe ISR porte une responsabilité spécifique pour garant
 
 | Rôle | Responsable | Missions principales |
 | --- | --- | --- |
-| **ISR 1 — Docker** | À définir | Création des Dockerfiles (Back/Front/DB), rédaction du `docker-compose.yml`, gestion des volumes et réseaux. |
-| **ISR 2 — CI/CD** | À définir | Mise en place du GitFlow, création du pipeline GitHub Actions (Build, Test, Push Docker). |
-| **ISR 3 — K8s** | À définir | Création des manifests (Deployments, Services, Ingress), gestion de la scalabilité et haute disponibilité. |
-| **ISR 4 — Sécurité** | À définir | Monitoring (Prometheus/Grafana), scan des images Docker, gestion des certificats SSL/HTTPS. |
+| **ISR 1 — Docker** | Fabien | Création des Dockerfiles (Back/Front/DB), rédaction du `docker-compose.yml`, gestion des volumes et réseaux. |
+| **ISR 2 — CI/CD** |Fabien | Mise en place du GitFlow, création du pipeline GitHub Actions (Build, Test, Push Docker). |
+| **ISR 3 — K8s** |Arsene | Création des manifests (Deployments, Services, Ingress), gestion de la scalabilité et haute disponibilité. |
+| **ISR 4 — Sécurité** | enock | Monitoring (Prometheus/Grafana), scan des images Docker, gestion des certificats SSL/HTTPS. |
 
 ---
 
