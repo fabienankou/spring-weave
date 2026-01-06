@@ -572,7 +572,6 @@ CREATE TRIGGER update_shipping_trackings_updated_at BEFORE UPDATE ON shipping_tr
 CREATE TRIGGER update_product_reviews_updated_at BEFORE UPDATE ON product_reviews FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 CREATE TRIGGER update_admin_users_updated_at BEFORE UPDATE ON admin_users FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 CREATE TRIGGER update_system_settings_updated_at BEFORE UPDATE ON system_settings FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
-
 -- =====================================================
 -- VUES UTILES
 -- =====================================================
