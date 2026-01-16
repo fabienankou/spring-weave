@@ -617,4 +617,4 @@ GROUP BY v.id;
 -- Vue: Crédit en cours
 CREATE VIEW active_credits_overview AS
 SELECT 
-    ca.id,
+    ca.id;

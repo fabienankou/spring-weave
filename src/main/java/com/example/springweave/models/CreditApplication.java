@@ -2,58 +2,42 @@ package com.example.springweave.models;
 
 import com.example.springweave.models.enums.CreditStatus;
 import jakarta.persistence.*;
-import lombok.Data; // les getters/setters automatiques
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-
+import lombok.Getter;
+import lombok.Setter;
 import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Entity
 @Table(name = "credit_applications")
-@Data // Lombok va génèrer les getters/setters/toString
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
+@Getter @Setter
+public class CreditApplication extends AbstractBaseEntity {
 
-public class CreditApplication {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @Column(nullable = false, precision = 15, scale = 2)
-    private BigDecimal amount; // Montant qui  demandé
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
+    private Order order;
 
-    @Column(name = "interest_rate", nullable = false, precision = 5, scale = 2)
-    private BigDecimal interestRate; // exemple: 12.50 %
+    private BigDecimal amount; // Montant emprunté
 
-    @Column(name = "duration_months", nullable = false)
-    private Integer durationMonths; // exemple: 3, 6, 12 mois
+    @Column(name = "interest_rate")
+    private BigDecimal interestRate; // ex: 0.05 pour 5%
 
-    @Column(name = "monthly_payment", precision = 15, scale = 2)
+    @Column(name = "duration_months")
+    private Integer durationMonths;
+
+    @Column(name = "monthly_payment")
     private BigDecimal monthlyPayment;
 
+    @Column(name = "total_to_repay")
+    private BigDecimal totalToRepay;
+
     @Enumerated(EnumType.STRING)
-    @Column(length = 50)
     private CreditStatus status = CreditStatus.PENDING;
 
-    // "mappedBy" fait référence au champ "creditApplication" dans l'enfant
-
-    @OneToMany(mappedBy = "creditApplication", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<RepaymentSchedule> repaymentSchedules;
-
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-    }
+    @OneToMany(mappedBy = "creditApplication", cascade = CascadeType.ALL)
+    private List<RepaymentSchedule> repaymentSchedules = new ArrayList<>();
 }
