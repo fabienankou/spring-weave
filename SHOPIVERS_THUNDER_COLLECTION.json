@@ -1,0 +1,101 @@
+{
+  "client": "Thunder Client",
+  "collectionName": "SHOPIVERS E-Commerce API",
+  "dateExport": "2026-01-27T10:00:00.000Z",
+  "version": "1.1",
+  "folders": [],
+  "requests": [
+    {
+      "name": "Register",
+      "method": "POST",
+      "url": "http://localhost:8080/api/auth/register",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\"name\":\"John Doe\",\"email\":\"john@example.com\",\"password\":\"password123\",\"phone\":\"+22890123456\",\"country\":\"TG\",\"city\":\"Lomé\",\"address\":\"123 Rue Test\"}"
+      }
+    },
+    {
+      "name": "Login",
+      "method": "POST",
+      "url": "http://localhost:8080/api/auth/login",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\"email\":\"john@example.com\",\"password\":\"password123\"}"
+      }
+    },
+    {
+      "name": "Get Current User",
+      "method": "GET",
+      "url": "http://localhost:8080/api/auth/me",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{token}}"
+        }
+      ]
+    },
+    {
+      "name": "Get All Products",
+      "method": "GET",
+      "url": "http://localhost:8080/api/products"
+    },
+    {
+      "name": "Get Product By ID",
+      "method": "GET",
+      "url": "http://localhost:8080/api/products/{{productId}}"
+    },
+    {
+      "name": "Create Order",
+      "method": "POST",
+      "url": "http://localhost:8080/api/orders",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{token}}"
+        },
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "type": "json",
+        "raw": "{\"customerId\":\"{{customerId}}\",\"items\":[{\"productId\":\"{{productId}}\",\"quantity\":1}],\"shippingAddress\":\"123 Rue Test\",\"paymentMethod\":\"card\"}"
+      }
+    },
+    {
+      "name": "Get All Orders",
+      "method": "GET",
+      "url": "http://localhost:8080/api/orders",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{token}}"
+        }
+      ]
+    },
+    {
+      "name": "Get Order By ID",
+      "method": "GET",
+      "url": "http://localhost:8080/api/orders/{{orderId}}",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {{token}}"
+        }
+      ]
+    }
+  ]
+}

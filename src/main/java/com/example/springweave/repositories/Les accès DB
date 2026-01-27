@@ -1,0 +1,3 @@
+ProductRepository.java : Interface JpaRepository<Product, Long>.
+
+UserRepository.java : Interface pour trouver les utilisateurs par email.

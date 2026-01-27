@@ -1,0 +1,5 @@
+ProjectConfig.java : Pour les beans généraux.
+
+SwaggerConfig.java : Pour personnaliser la doc OpenAPI/Swagger.
+
+CorsConfig.java : Pour autoriser ton Frontend à appeler le Backend.
