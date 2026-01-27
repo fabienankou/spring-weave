@@ -28,6 +28,11 @@ public class JwtService {
         return extractClaim(token, Claims::getSubject);
     }
 
+    // Extraire l'email du token
+    public String extractEmail(String token) {
+        return extractClaim(token, Claims::getSubject);
+    }
+
     // Générer un token pour un utilisateur (Customer ou Admin)
     public String generateToken(String email, Map<String, Object> extraClaims) {
         return Jwts.builder()

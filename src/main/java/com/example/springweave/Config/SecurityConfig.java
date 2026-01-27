@@ -1,11 +1,11 @@
-
 package com.example.springweave.Config;
 
-import com.example.springweave.repositories.VendorRepository;
-import com.example.springweave.security.ApiKeyAuthenticationFilter;
 import com.example.springweave.security.JwtAuthenticationFilter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -16,37 +16,51 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     private final JwtAuthenticationFilter jwtAuthFilter;
-    private final VendorRepository vendorRepository;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-    public SecurityConfig(JwtAuthenticationFilter jwtAuthFilter, VendorRepository vendorRepository) {
-        this.jwtAuthFilter = jwtAuthFilter;
-        this.vendorRepository = vendorRepository;
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
+                .headers(headers -> headers.frameOptions(frame -> frame.disable()))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        // Accès Public
-                        .requestMatchers("/api/auth/**", "/api/products/public/**").permitAll()
-                        // Accès Vendeurs (API Key)
-                        .requestMatchers("/api/vendor/**").hasRole("VENDOR")
-                        // Accès Admin
-                        .requestMatchers("/api/admin/**").hasAnyRole("SUPER_ADMIN", "ADMIN")
-                        // Accès Clients
-                        .requestMatchers("/api/customer/**").hasRole("CUSTOMER")
+                        // 1. Accès techniques (H2, Swagger)
+                        .requestMatchers("/h2-console/**").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+
+                        // 2. Auth Publique
+                        .requestMatchers("/api/auth/**").permitAll()
+
+                        // 3. Gestion des Admins (CRITIQUE : On laisse POST ouvert pour créer le 1er admin)
+                        .requestMatchers(HttpMethod.POST, "/api/admins").permitAll()
+                        .requestMatchers("/api/admins/**").hasRole("ADMIN")
+
+                        // 4. Gestion des Vendeurs
+                        .requestMatchers(HttpMethod.GET, "/api/vendors/**").permitAll() // Voir les vendeurs : Public
+                        .requestMatchers(HttpMethod.POST, "/api/vendors").hasRole("ADMIN") // Créer un vendeur : Admin seulement
+
+                        // 5. Gestion des Produits
+                        .requestMatchers(HttpMethod.GET, "/api/products/**").permitAll() // Tout le monde peut voir
+                        .requestMatchers(HttpMethod.POST, "/api/products").hasAnyRole("VENDOR", "ADMIN") // Création sécurisée
+                        .requestMatchers(HttpMethod.PUT, "/api/products/**").hasAnyRole("VENDOR", "ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/products/**").hasAnyRole("VENDOR", "ADMIN")
+
+                        // 6. Clients
+                        .requestMatchers("/api/orders/**").hasRole("CUSTOMER")
+
+                        // 7. Tout le reste fermé
                         .anyRequest().authenticated()
                 )
-                // Ajout des filtres personnalisés
-                .addFilterBefore(new ApiKeyAuthenticationFilter(vendorRepository), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
