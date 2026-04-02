@@ -4,7 +4,7 @@
 # Vérifie que tous les fichiers essentiels existent et que l'application compile
 
 echo "================================"
-echo "🔍 VALIDATION SHOPIVERS PROJECT"
+echo " VALIDATION SHOPIVERS PROJECT"
 echo "================================"
 echo ""
 
@@ -42,7 +42,7 @@ check_directory() {
     fi
 }
 
-echo "📁 Checking Directory Structure..."
+echo "Checking Directory Structure..."
 check_directory "src/main/java/com/example/springweave/controllers" "Controllers directory"
 check_directory "src/main/java/com/example/springweave/services" "Services directory"
 check_directory "src/main/java/com/example/springweave/models" "Models directory"
@@ -53,7 +53,7 @@ check_directory "src/main/java/com/example/springweave/Config" "Config directory
 check_directory "src/main/java/com/example/springweave/exceptions" "Exceptions directory"
 echo ""
 
-echo "🎮 Checking Controllers..."
+echo " Checking Controllers..."
 check_file "src/main/java/com/example/springweave/controllers/AuthController.java" "AuthController"
 check_file "src/main/java/com/example/springweave/controllers/ProductController.java" "ProductController"
 check_file "src/main/java/com/example/springweave/controllers/OrderController.java" "OrderController"
@@ -61,20 +61,20 @@ check_file "src/main/java/com/example/springweave/controllers/CustomerController
 check_file "src/main/java/com/example/springweave/controllers/VendorProductController.java" "VendorProductController"
 echo ""
 
-echo "⚙️ Checking Services..."
+echo "⚙ Checking Services..."
 check_file "src/main/java/com/example/springweave/services/AuthService.java" "AuthService"
 check_file "src/main/java/com/example/springweave/services/ProductService.java" "ProductService"
 check_file "src/main/java/com/example/springweave/services/OrderService.java" "OrderService"
 echo ""
 
-echo "💾 Checking Repositories..."
+echo " Checking Repositories..."
 check_file "src/main/java/com/example/springweave/repositories/CustomerRepository.java" "CustomerRepository"
 check_file "src/main/java/com/example/springweave/repositories/OrderRepository.java" "OrderRepository"
 check_file "src/main/java/com/example/springweave/repositories/OrderItemRepository.java" "OrderItemRepository"
 check_file "src/main/java/com/example/springweave/repositories/ProductRepository.java" "ProductRepository"
 echo ""
 
-echo "📦 Checking DTOs..."
+echo " Checking DTOs..."
 check_file "src/main/java/com/example/springweave/dtos/ProductResponse.java" "ProductResponse DTO"
 check_file "src/main/java/com/example/springweave/dtos/OrderResponse.java" "OrderResponse DTO"
 check_file "src/main/java/com/example/springweave/dtos/CustomerResponse.java" "CustomerResponse DTO"
@@ -82,22 +82,22 @@ check_file "src/main/java/com/example/springweave/dtos/RegisterRequest.java" "Re
 check_file "src/main/java/com/example/springweave/dtos/CreateOrderRequest.java" "CreateOrderRequest DTO"
 echo ""
 
-echo "🔐 Checking Security..."
+echo " Checking Security..."
 check_file "src/main/java/com/example/springweave/security/JwtService.java" "JwtService"
 check_file "src/main/java/com/example/springweave/security/JwtAuthenticationFilter.java" "JwtAuthenticationFilter"
 echo ""
 
-echo "⚙️ Checking Configuration..."
+echo "⚙ Checking Configuration..."
 check_file "src/main/java/com/example/springweave/Config/SecurityConfig.java" "SecurityConfig"
 check_file "src/main/java/com/example/springweave/Config/CorsConfig.java" "CorsConfig"
 check_file "src/main/java/com/example/springweave/Config/SwaggerConfig.java" "SwaggerConfig"
 echo ""
 
-echo "🚨 Checking Exception Handling..."
+echo " Checking Exception Handling..."
 check_file "src/main/java/com/example/springweave/exceptions/GlobalExceptionHandler.java" "GlobalExceptionHandler"
 echo ""
 
-echo "📋 Checking Configuration Files..."
+echo " Checking Configuration Files..."
 check_file "pom.xml" "Maven POM"
 check_file "src/main/resources/application.properties" "Application Properties"
 check_file "Dockerfile" "Dockerfile"
@@ -105,7 +105,7 @@ check_file "docker-compose.yml" "Docker Compose"
 check_file ".env.example" "Environment Example"
 echo ""
 
-echo "📚 Checking Documentation..."
+echo " Checking Documentation..."
 check_file "API_DOCUMENTATION.md" "API Documentation"
 check_file "QUICK_START.md" "Quick Start Guide"
 check_file "WORK_SUMMARY.md" "Work Summary"
@@ -115,11 +115,11 @@ check_file "SHOPIVERS_API.postman_collection.json" "Postman Collection"
 echo ""
 
 # Vérification de la compilation
-echo "🔨 Checking Maven Compilation..."
+echo " Checking Maven Compilation..."
 total=$((total + 1))
 
 if command -v mvn &> /dev/null; then
-    echo -e "${YELLOW}⏳ Compiling project with Maven...${NC}"
+    echo -e "${YELLOW} Compiling project with Maven...${NC}"
     if mvn clean compile -q 2>/dev/null; then
         echo -e "${GREEN}✓${NC} Maven compilation successful"
         passed=$((passed + 1))
@@ -128,7 +128,7 @@ if command -v mvn &> /dev/null; then
         failed=$((failed + 1))
     fi
 elif command -v ./mvnw &> /dev/null; then
-    echo -e "${YELLOW}⏳ Compiling project with Maven Wrapper...${NC}"
+    echo -e "${YELLOW} Compiling project with Maven Wrapper...${NC}"
     if ./mvnw clean compile -q 2>/dev/null; then
         echo -e "${GREEN}✓${NC} Maven Wrapper compilation successful"
         passed=$((passed + 1))
@@ -143,7 +143,7 @@ echo ""
 
 # Résumé
 echo "================================"
-echo "📊 VALIDATION RESULTS"
+echo "VALIDATION RESULTS"
 echo "================================"
 echo -e "Total Checks: ${total}"
 echo -e "${GREEN}Passed: ${passed}${NC}"
@@ -151,9 +151,9 @@ echo -e "${RED}Failed: ${failed}${NC}"
 echo ""
 
 if [ $failed -eq 0 ]; then
-    echo -e "${GREEN}✅ ALL CHECKS PASSED - PROJECT IS READY!${NC}"
+    echo -e "${GREEN} ALL CHECKS PASSED - PROJECT IS READY!${NC}"
     exit 0
 else
-    echo -e "${RED}❌ SOME CHECKS FAILED - PLEASE REVIEW${NC}"
+    echo -e "${RED} SOME CHECKS FAILED - PLEASE REVIEW${NC}"
     exit 1
 fi
