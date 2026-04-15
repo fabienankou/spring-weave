@@ -7,7 +7,7 @@ const ProductList = () => {
 
   useEffect(() => {
     // Ajuste l'URL selon ton controller @RequestMapping("/api/products")
-    axios.get('http://localhost:8080/api/products')
+    axios.get('http://localhost:8081/api/products')
       .then(res => setProducts(res.data))
       .catch(err => console.error("Erreur API:", err));
   }, []);
