@@ -1,0 +1,214 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1120 800" font-family="Segoe UI, Roboto, Arial, sans-serif">
+  <defs>
+    <marker id="m" markerWidth="11" markerHeight="11" refX="9" refY="5.5" orient="auto">
+      <path d="M0,0 L10,5.5 L0,11 z" fill="#4A5568"/>
+    </marker>
+    <style>
+      .eh  { fill:#4A5568; }
+      .ehc { fill:#C5B358; }
+      .en  { fill:#FFFFFF; font-size:13px; font-weight:700; }
+      .box { fill:#FFFFFF; stroke:#4A5568; stroke-width:1.4; }
+      .f   { fill:#1A202C; font-size:11.5px; }
+      .pk  { fill:#8A7B24; font-size:11.5px; font-weight:700; }
+      .fk  { fill:#4A5568; font-size:11.5px; font-style:italic; }
+      .rel { stroke:#4A5568; stroke-width:1.5; fill:none; }
+      .card{ fill:#2D3748; font-size:11px; font-weight:700; }
+      .title{ fill:#2D3748; font-size:22px; font-weight:700; }
+      .cap { fill:#5B6472; font-size:12px; }
+    </style>
+  </defs>
+
+  <text x="30" y="34" class="title">Modèle entité-relation (ERD) — base de données</text>
+  <text x="30" y="54" class="cap">Reconstruit à partir des entités JPA réelles (com.example.springweave.models). PK = clé primaire (UUID) · FK = clé étrangère.</text>
+
+  <!-- ============ AdminUser (C1) ============ -->
+  <g>
+    <rect class="box" x="40" y="80" width="230" height="72"/>
+    <rect class="eh" x="40" y="80" width="230" height="22"/>
+    <text x="52" y="96" class="en">AdminUser</text>
+    <text x="52" y="119" class="pk">id (PK)</text>
+    <text x="52" y="135" class="f">email · password_hash</text>
+    <text x="52" y="151" class="f">role (AdminRole)</text>
+  </g>
+
+  <!-- ============ Customer (C2) ============ -->
+  <g>
+    <rect class="box" x="310" y="80" width="230" height="150"/>
+    <rect class="eh" x="310" y="80" width="230" height="22"/>
+    <text x="322" y="96" class="en">Customer</text>
+    <text x="322" y="119" class="pk">id (PK)</text>
+    <text x="322" y="135" class="f">email · phone · password_hash</text>
+    <text x="322" y="151" class="f">kyc_status (KycStatus)</text>
+    <text x="322" y="167" class="f">credit_score · credit_limit</text>
+    <text x="322" y="183" class="f">available_credit</text>
+    <text x="322" y="199" class="f">is_premium · monthly_income</text>
+    <text x="322" y="215" class="f">country · city · address</text>
+  </g>
+
+  <!-- ============ Vendor (C4) ============ -->
+  <g>
+    <rect class="box" x="850" y="80" width="230" height="104"/>
+    <rect class="eh" x="850" y="80" width="230" height="22"/>
+    <text x="862" y="96" class="en">Vendor</text>
+    <text x="862" y="119" class="pk">id (PK)</text>
+    <text x="862" y="135" class="f">name · country</text>
+    <text x="862" y="151" class="f">api_key · vendor_score</text>
+    <text x="862" y="167" class="f">type (VendorType)</text>
+  </g>
+
+  <!-- ============ KycDocument (C1) ============ -->
+  <g>
+    <rect class="box" x="40" y="300" width="230" height="90"/>
+    <rect class="eh" x="40" y="300" width="230" height="22"/>
+    <text x="52" y="316" class="en">KycDocument</text>
+    <text x="52" y="339" class="pk">id (PK)</text>
+    <text x="52" y="355" class="f">type (DocumentType) · status</text>
+    <text x="52" y="371" class="f">metadata (jsonb)</text>
+    <text x="52" y="387" class="fk">customer_id (FK)</text>
+  </g>
+
+  <!-- ============ Notification (C1) ============ -->
+  <g>
+    <rect class="box" x="40" y="470" width="230" height="90"/>
+    <rect class="eh" x="40" y="470" width="230" height="22"/>
+    <text x="52" y="486" class="en">Notification</text>
+    <text x="52" y="509" class="pk">id (PK)</text>
+    <text x="52" y="525" class="f">channel · status</text>
+    <text x="52" y="541" class="f">message</text>
+    <text x="52" y="557" class="fk">customer_id (FK)</text>
+  </g>
+
+  <!-- ============ AuditLog (C1) ============ -->
+  <g>
+    <rect class="box" x="40" y="650" width="230" height="90"/>
+    <rect class="eh" x="40" y="650" width="230" height="22"/>
+    <text x="52" y="666" class="en">AuditLog</text>
+    <text x="52" y="689" class="pk">id (PK)</text>
+    <text x="52" y="705" class="f">actor · action</text>
+    <text x="52" y="721" class="f">entity · created_at</text>
+    <text x="52" y="737" class="f">(journal transversal §6.5)</text>
+  </g>
+
+  <!-- ============ CreditApplication (C2) ============ -->
+  <g>
+    <rect class="box" x="310" y="300" width="230" height="168"/>
+    <rect class="eh" x="310" y="300" width="230" height="22"/>
+    <text x="322" y="316" class="en">CreditApplication</text>
+    <text x="322" y="339" class="pk">id (PK)</text>
+    <text x="322" y="355" class="f">amount · interest_rate</text>
+    <text x="322" y="371" class="f">duration_months</text>
+    <text x="322" y="387" class="f">monthly_payment · total_to_repay</text>
+    <text x="322" y="403" class="f">status (CreditStatus)</text>
+    <text x="322" y="419" class="fk">customer_id (FK)</text>
+    <text x="322" y="435" class="fk">order_id (FK, nullable)</text>
+    <text x="322" y="455" class="f">↳ apporteur d’affaires (§7.5)</text>
+  </g>
+
+  <!-- ============ RepaymentSchedule (C2) ============ -->
+  <g>
+    <rect class="box" x="310" y="560" width="230" height="130"/>
+    <rect class="eh" x="310" y="560" width="230" height="22"/>
+    <text x="322" y="576" class="en">RepaymentSchedule</text>
+    <text x="322" y="599" class="pk">id (PK)</text>
+    <text x="322" y="615" class="f">installment_number</text>
+    <text x="322" y="631" class="f">due_date</text>
+    <text x="322" y="647" class="f">amount_due · amount_paid</text>
+    <text x="322" y="663" class="f">status (RepaymentStatus)</text>
+    <text x="322" y="679" class="fk">credit_application_id (FK)</text>
+  </g>
+
+  <!-- ============ Order (C3) ============ -->
+  <g>
+    <rect class="box" x="580" y="150" width="230" height="130"/>
+    <rect class="eh" x="580" y="150" width="230" height="22"/>
+    <text x="592" y="166" class="en">Order</text>
+    <text x="592" y="189" class="pk">id (PK)</text>
+    <text x="592" y="205" class="f">status (OrderStatus)</text>
+    <text x="592" y="221" class="f">payment_status</text>
+    <text x="592" y="237" class="f">shipping_address · tracking_number</text>
+    <text x="592" y="253" class="f">total_amount</text>
+    <text x="592" y="269" class="fk">customer_id (FK)</text>
+  </g>
+
+  <!-- ============ OrderItem (C3) ============ -->
+  <g>
+    <rect class="box" x="580" y="470" width="230" height="112"/>
+    <rect class="eh" x="580" y="470" width="230" height="22"/>
+    <text x="592" y="486" class="en">OrderItem</text>
+    <text x="592" y="509" class="pk">id (PK)</text>
+    <text x="592" y="525" class="f">quantity · unit_price</text>
+    <text x="592" y="541" class="f">status (OrderItemStatus)</text>
+    <text x="592" y="557" class="fk">order_id (FK)</text>
+    <text x="592" y="573" class="fk">product_id (FK)</text>
+  </g>
+
+  <!-- ============ Product (C4) ============ -->
+  <g>
+    <rect class="box" x="850" y="300" width="230" height="130"/>
+    <rect class="eh" x="850" y="300" width="230" height="22"/>
+    <text x="862" y="316" class="en">Product</text>
+    <text x="862" y="339" class="pk">id (PK)</text>
+    <text x="862" y="355" class="f">sku · name · price</text>
+    <text x="862" y="371" class="f">condition (ProductCondition)</text>
+    <text x="862" y="387" class="f">stock_status (StockStatus)</text>
+    <text x="862" y="403" class="f">external_product_id</text>
+    <text x="862" y="419" class="fk">vendor_id (FK)</text>
+  </g>
+
+  <!-- ============ Transaction (C4) ============ -->
+  <g>
+    <rect class="box" x="850" y="470" width="230" height="128"/>
+    <rect class="eh" x="850" y="470" width="230" height="22"/>
+    <text x="862" y="486" class="en">Transaction</text>
+    <text x="862" y="509" class="pk">id (PK)</text>
+    <text x="862" y="525" class="f">type (TransactionType)</text>
+    <text x="862" y="541" class="f">gateway (PaymentGateway)</text>
+    <text x="862" y="557" class="f">status · amount</text>
+    <text x="862" y="573" class="f">metadata (jsonb)</text>
+    <text x="862" y="589" class="fk">order_id (FK)</text>
+  </g>
+
+  <!-- ================= RELATIONS ================= -->
+  <!-- Customer 1—N Order -->
+  <path class="rel" d="M540,150 H580" marker-end="url(#m)"/>
+  <text x="548" y="143" class="card">1</text><text x="565" y="143" class="card">N</text>
+
+  <!-- Customer 1—N CreditApplication -->
+  <path class="rel" d="M425,230 V300" marker-end="url(#m)"/>
+  <text x="410" y="248" class="card">1</text><text x="410" y="294" class="card">N</text>
+
+  <!-- Customer 1—N KycDocument -->
+  <path class="rel" d="M310,150 H290 V330 H270" marker-end="url(#m)"/>
+  <text x="296" y="144" class="card">1</text><text x="276" y="325" class="card">N</text>
+
+  <!-- Customer 1—N Notification -->
+  <path class="rel" d="M310,200 H285 V500 H270" marker-end="url(#m)"/>
+  <text x="292" y="214" class="card">1</text><text x="276" y="495" class="card">N</text>
+
+  <!-- Vendor 1—N Product -->
+  <path class="rel" d="M965,184 V300" marker-end="url(#m)"/>
+  <text x="950" y="200" class="card">1</text><text x="950" y="296" class="card">N</text>
+
+  <!-- Order 1—N OrderItem -->
+  <path class="rel" d="M695,280 V470" marker-end="url(#m)"/>
+  <text x="680" y="298" class="card">1</text><text x="680" y="464" class="card">N</text>
+
+  <!-- Product 1—N OrderItem -->
+  <path class="rel" d="M850,380 H830 V520 H810" marker-end="url(#m)"/>
+  <text x="835" y="374" class="card">1</text><text x="816" y="515" class="card">N</text>
+
+  <!-- Order 1—N Transaction -->
+  <path class="rel" d="M810,240 H900 V470" marker-end="url(#m)"/>
+  <text x="815" y="234" class="card">1</text><text x="905" y="464" class="card">N</text>
+
+  <!-- Order 1—0..1 CreditApplication -->
+  <path class="rel" d="M580,255 H560 V360 H540" marker-end="url(#m)"/>
+  <text x="565" y="249" class="card">1</text><text x="500" y="355" class="card">0..1</text>
+
+  <!-- CreditApplication 1—N RepaymentSchedule -->
+  <path class="rel" d="M425,468 V560" marker-end="url(#m)"/>
+  <text x="410" y="486" class="card">1</text><text x="410" y="554" class="card">N</text>
+
+  <text x="30" y="766" class="cap">Cardinalités 1—N : un client → ses commandes, crédits, documents KYC et notifications ; un vendeur → ses produits.</text>
+  <text x="30" y="784" class="cap">Une commande → ses lignes et ses transactions, et 0..1 crédit rattaché ; un crédit → ses N échéances de remboursement.</text>
+</svg>

@@ -1,0 +1,137 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1040 820" font-family="Segoe UI, Roboto, Arial, sans-serif">
+  <defs>
+    <marker id="ar"  markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L9,5 L0,10 z" fill="#4A5568"/>
+    </marker>
+    <marker id="ard" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L9,5 L0,10 z" fill="#C5B358"/>
+    </marker>
+    <style>
+      .band  { fill:#FFFFFF; stroke:#4A5568; stroke-width:1.5; rx:10; }
+      .hdr   { fill:#4A5568; }
+      .htxt  { fill:#FFFFFF; font-size:15px; font-weight:700; }
+      .node  { fill:#F2F4F7; stroke:#8B97A8; stroke-width:1; rx:7; }
+      .ntxt  { fill:#1A202C; font-size:12.5px; }
+      .sub   { fill:#5B6472; font-size:11px; }
+      .ext   { fill:#FBF7E8; stroke:#C5B358; stroke-width:1.3; rx:7; }
+      .lnk   { stroke:#4A5568; stroke-width:1.6; fill:none; }
+      .lnkd  { stroke:#C5B358; stroke-width:1.4; fill:none; stroke-dasharray:5 4; }
+      .title { fill:#2D3748; font-size:22px; font-weight:700; }
+      .cap   { fill:#5B6472; font-size:12px; }
+    </style>
+  </defs>
+
+  <text x="30" y="34" class="title">SHOPIVERS / Weave — Architecture applicative</text>
+  <text x="30" y="54" class="cap">Monolithe modulaire Spring Boot 3.4 (Java 17) — découpage aligné sur les services cibles du cahier des charges (§5.2)</text>
+
+  <!-- ===== Colonne centrale ===== -->
+  <!-- Clients -->
+  <rect class="band" x="30" y="72" width="700" height="70"/>
+  <rect class="hdr" x="30" y="72" width="700" height="24" rx="10"/>
+  <text x="42" y="89" class="htxt">Clients</text>
+  <rect class="node" x="46" y="104" width="320" height="30"/>
+  <text x="60" y="124" class="ntxt">Front React 19 + Vite — mobile-first (PWA)</text>
+  <rect class="node" x="386" y="104" width="326" height="30"/>
+  <text x="400" y="124" class="ntxt">Console d’administration (brand/shopivers-admin)</text>
+
+  <line class="lnk" x1="380" y1="142" x2="380" y2="168" marker-end="url(#ar)"/>
+
+  <!-- Sécurité -->
+  <rect class="band" x="30" y="170" width="700" height="60"/>
+  <rect class="hdr" x="30" y="170" width="700" height="24" rx="10"/>
+  <text x="42" y="187" class="htxt">Sécurité &amp; entrée</text>
+  <text x="46" y="216" class="ntxt">Spring Security · JWT (jjwt) · filtre JwtAuthenticationFilter · CORS · RBAC : CUSTOMER / VENDOR / ADMIN</text>
+
+  <line class="lnk" x1="380" y1="230" x2="380" y2="256" marker-end="url(#ar)"/>
+
+  <!-- Controllers -->
+  <rect class="band" x="30" y="258" width="700" height="86"/>
+  <rect class="hdr" x="30" y="258" width="700" height="24" rx="10"/>
+  <text x="42" y="275" class="htxt">Contrôleurs REST  (/api/**)</text>
+  <g class="ntxt">
+    <rect class="node" x="46"  y="292" width="150" height="20"/><text x="54" y="306">Auth · Customer</text>
+    <rect class="node" x="204" y="292" width="150" height="20"/><text x="212" y="306">Product · Vendor</text>
+    <rect class="node" x="362" y="292" width="150" height="20"/><text x="370" y="306">Order · Payment</text>
+    <rect class="node" x="520" y="292" width="192" height="20"/><text x="528" y="306">Credit · Kyc · Notification</text>
+    <rect class="node" x="46"  y="316" width="150" height="20"/><text x="54" y="330">Admin</text>
+    <rect class="node" x="204" y="316" width="308" height="20"/><text x="212" y="330">Swagger / OpenAPI (springdoc) — doc auto</text>
+  </g>
+
+  <line class="lnk" x1="380" y1="344" x2="380" y2="370" marker-end="url(#ar)"/>
+
+  <!-- Services -->
+  <rect class="band" x="30" y="372" width="700" height="150"/>
+  <rect class="hdr" x="30" y="372" width="700" height="24" rx="10"/>
+  <text x="42" y="389" class="htxt">Services métier  (domaines du CDC §5.2)</text>
+  <g>
+    <rect class="node" x="46" y="404" width="210" height="46"/>
+    <text x="56" y="422" class="ntxt">Utilisateurs &amp; Auth</text>
+    <text x="56" y="438" class="sub">AuthService · AdminService</text>
+
+    <rect class="node" x="266" y="404" width="210" height="46"/>
+    <text x="276" y="422" class="ntxt">Catalogue &amp; Sourcing</text>
+    <text x="276" y="438" class="sub">ProductService (Zéro Stock)</text>
+
+    <rect class="node" x="486" y="404" width="226" height="46"/>
+    <text x="496" y="422" class="ntxt">Fintech / Crédit  ★</text>
+    <text x="496" y="438" class="sub">CreditService · CreditScoringService</text>
+
+    <rect class="node" x="46" y="460" width="210" height="46"/>
+    <text x="56" y="478" class="ntxt">Commandes &amp; Paiements</text>
+    <text x="56" y="494" class="sub">OrderService · PaymentService</text>
+
+    <rect class="node" x="266" y="460" width="210" height="46"/>
+    <text x="276" y="478" class="ntxt">Notifications</text>
+    <text x="276" y="494" class="sub">NotificationService</text>
+
+    <rect class="node" x="486" y="460" width="226" height="46" style="stroke-dasharray:4 3;"/>
+    <text x="496" y="478" class="ntxt">Logistique &amp; Fulfillment</text>
+    <text x="496" y="494" class="sub">à implémenter (CDC §8)</text>
+  </g>
+
+  <line class="lnk" x1="380" y1="522" x2="380" y2="548" marker-end="url(#ar)"/>
+
+  <!-- Repositories -->
+  <rect class="band" x="30" y="550" width="700" height="52"/>
+  <rect class="hdr" x="30" y="550" width="700" height="24" rx="10"/>
+  <text x="42" y="567" class="htxt">Accès données</text>
+  <text x="46" y="590" class="ntxt">Spring Data JPA / Hibernate — 13 repositories (Customer, Product, Order, CreditApplication, RepaymentSchedule…)</text>
+
+  <line class="lnk" x1="380" y1="602" x2="380" y2="628" marker-end="url(#ar)"/>
+
+  <!-- Database -->
+  <rect class="band" x="30" y="630" width="700" height="60"/>
+  <rect class="hdr" x="30" y="630" width="700" height="24" rx="10"/>
+  <text x="42" y="647" class="htxt">Base de données</text>
+  <text x="46" y="676" class="ntxt">PostgreSQL (prod, colonnes jsonb) · H2 en mémoire (dev) — ACID, intégrité des transactions financières</text>
+
+  <!-- ===== Colonne intégrations externes ===== -->
+  <rect class="ext" x="760" y="258" width="250" height="264"/>
+  <rect class="hdr" x="760" y="258" width="250" height="24" rx="7" fill="#C5B358"/>
+  <text x="772" y="275" class="htxt" fill="#2D3748">Intégrations externes</text>
+  <g class="ntxt">
+    <rect class="ext" x="776" y="296" width="218" height="42"/>
+    <text x="788" y="314">Stripe (cartes)</text>
+    <text x="788" y="330" class="sub">stripe-java · réel</text>
+
+    <rect class="ext" x="776" y="346" width="218" height="42"/>
+    <text x="788" y="364">Mobile Money — TMoney / Flooz</text>
+    <text x="788" y="380" class="sub">MockPaymentProvider (V1)</text>
+
+    <rect class="ext" x="776" y="394" width="218" height="42"/>
+    <text x="788" y="412">Partenaire bancaire / assurance</text>
+    <text x="788" y="428" class="sub">apporteur d’affaires (CDC §7.5)</text>
+
+    <rect class="ext" x="776" y="442" width="218" height="42"/>
+    <text x="788" y="460">Passerelle SMS / e-mail</text>
+    <text x="788" y="476" class="sub">MockNotificationSender (V1)</text>
+  </g>
+  <!-- liens vers services -->
+  <path class="lnkd" d="M776,412 C745,412 742,432 715,432" marker-end="url(#ard)"/>
+  <path class="lnkd" d="M776,367 C620,367 560,470 512,478" marker-end="url(#ard)"/>
+  <path class="lnkd" d="M776,463 C520,463 430,470 372,478" marker-end="url(#ard)"/>
+
+  <text x="30" y="712" class="cap">★ Cœur d’innovation et priorité MVP P1 (CDC §13.1) : moteur de crédit + scoring de solvabilité.</text>
+  <text x="30" y="732" class="cap">Trait plein = appel interne synchrone ·  trait doré pointillé = intégration externe (mockée en V1).</text>
+  <text x="30" y="752" class="cap">Cible d’évolution (CDC §5) : extraction en microservices indépendants + bus d’événements (RabbitMQ / SQS), service Fintech isolé en VPC.</text>
+</svg>

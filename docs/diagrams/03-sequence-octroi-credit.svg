@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1160 760" font-family="Segoe UI, Roboto, Arial, sans-serif">
+  <defs>
+    <marker id="s" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L9,5 L0,10 z" fill="#4A5568"/>
+    </marker>
+    <marker id="r" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L9,5 L0,10 z" fill="#8A7B24"/>
+    </marker>
+    <style>
+      .ll   { stroke:#8B97A8; stroke-width:1.2; stroke-dasharray:4 4; }
+      .head { fill:#4A5568; rx:6; }
+      .hx   { fill:#FFFFFF; font-size:12.5px; font-weight:700; }
+      .call { stroke:#4A5568; stroke-width:1.6; fill:none; }
+      .ret  { stroke:#8A7B24; stroke-width:1.4; fill:none; stroke-dasharray:6 4; }
+      .msg  { fill:#1A202C; font-size:11.5px; }
+      .rmsg { fill:#8A7B24; font-size:11px; font-style:italic; }
+      .act  { fill:#E7ECF3; stroke:#4A5568; stroke-width:1; }
+      .alt  { fill:none; stroke:#C5B358; stroke-width:1.5; }
+      .altt { fill:#C5B358; }
+      .guard{ fill:#2D3748; font-size:11px; font-weight:700; }
+      .note { fill:#5B6472; font-size:10.5px; }
+      .title{ fill:#2D3748; font-size:22px; font-weight:700; }
+      .cap  { fill:#5B6472; font-size:12px; }
+    </style>
+  </defs>
+
+  <text x="30" y="34" class="title">Séquence UML — octroi d’un crédit  (POST /api/credit/apply)</text>
+  <text x="30" y="54" class="cap">Flux réel : CreditController → CreditService → CreditScoringService. Trait plein = appel · trait doré pointillé = retour.</text>
+
+  <!-- Lifelines heads -->
+  <g>
+    <rect class="head" x="30"  y="70" width="140" height="30"/><text x="100"  y="90" class="hx" text-anchor="middle">Client (mobile)</text>
+    <rect class="head" x="230" y="70" width="140" height="30"/><text x="300"  y="90" class="hx" text-anchor="middle">CreditController</text>
+    <rect class="head" x="430" y="70" width="140" height="30"/><text x="500"  y="90" class="hx" text-anchor="middle">CreditService</text>
+    <rect class="head" x="615" y="70" width="170" height="30"/><text x="700"  y="90" class="hx" text-anchor="middle">CreditScoringService</text>
+    <rect class="head" x="820" y="70" width="140" height="30"/><text x="890"  y="90" class="hx" text-anchor="middle">Repositories / DB</text>
+    <rect class="head" x="1000" y="70" width="150" height="30"/><text x="1075" y="90" class="hx" text-anchor="middle">Partenaire bancaire</text>
+  </g>
+
+  <!-- Lifelines -->
+  <line class="ll" x1="100"  y1="100" x2="100"  y2="720"/>
+  <line class="ll" x1="300"  y1="100" x2="300"  y2="720"/>
+  <line class="ll" x1="500"  y1="100" x2="500"  y2="720"/>
+  <line class="ll" x1="700"  y1="100" x2="700"  y2="720"/>
+  <line class="ll" x1="890"  y1="100" x2="890"  y2="720"/>
+  <line class="ll" x1="1075" y1="100" x2="1075" y2="720"/>
+
+  <!-- activation bar on CreditService -->
+  <rect class="act" x="494" y="150" width="12" height="520"/>
+
+  <!-- 1 Client -> Controller -->
+  <line class="call" x1="100" y1="128" x2="300" y2="128" marker-end="url(#s)"/>
+  <text x="108" y="122" class="msg">POST /api/credit/apply { amount, durationMonths, orderId }</text>
+
+  <!-- 2 Controller -> Service -->
+  <line class="call" x1="300" y1="158" x2="494" y2="158" marker-end="url(#s)"/>
+  <text x="308" y="152" class="msg">applyAndRespond(request)</text>
+
+  <!-- 3 Service -> DB find customer -->
+  <line class="call" x1="506" y1="188" x2="890" y2="188" marker-end="url(#s)"/>
+  <text x="514" y="182" class="msg">findById(customerId)</text>
+  <line class="ret" x1="890" y1="210" x2="506" y2="210" marker-end="url(#r)"/>
+  <text x="620" y="204" class="rmsg">Customer</text>
+
+  <!-- 4 self check KYC + premium -->
+  <path class="call" d="M506,232 h60 v18 h-60" marker-end="url(#s)"/>
+  <text x="572" y="240" class="msg">vérifie KYC = VERIFIED &amp; abonnement Premium  (§4.1)</text>
+
+  <!-- 5 Service -> Scoring -->
+  <line class="call" x1="506" y1="280" x2="700" y2="280" marker-end="url(#s)"/>
+  <text x="514" y="274" class="msg">evaluate(customer)</text>
+
+  <!-- 6 Scoring -> DB -->
+  <line class="call" x1="700" y1="308" x2="890" y2="308" marker-end="url(#s)"/>
+  <text x="708" y="302" class="msg">countOrders · countCompletedCredits</text>
+  <line class="ret" x1="890" y1="330" x2="700" y2="330" marker-end="url(#r)"/>
+  <text x="742" y="324" class="rmsg">compteurs</text>
+
+  <!-- 7 Scoring -> Service return -->
+  <line class="ret" x1="700" y1="360" x2="506" y2="360" marker-end="url(#r)"/>
+  <text x="512" y="354" class="rmsg">ScoringResult { score/1000, risque, décision, plafond, taux }</text>
+
+  <!-- ALT fragment -->
+  <rect class="alt" x="360" y="384" width="770" height="270"/>
+  <path class="altt" d="M360,384 h64 v16 l-10,10 h-54 z"/>
+  <text x="368" y="398" class="hx" font-size="11">alt</text>
+  <text x="432" y="398" class="guard">décision de scoring  (§7.3 : &lt;400 refus · 400–549 revue · ≥550 accord)</text>
+
+  <!-- branch REJECTED -->
+  <text x="368" y="420" class="guard">[ REJECTED ]</text>
+  <line class="call" x1="506" y1="438" x2="890" y2="438" marker-end="url(#s)"/>
+  <text x="514" y="432" class="msg">save(application, status = REJECTED)</text>
+  <text x="514" y="452" class="note">aucun décaissement · mensualité = 0</text>
+
+  <line x1="360" y1="466" x2="1130" y2="466" stroke="#C5B358" stroke-width="1" stroke-dasharray="4 3"/>
+
+  <!-- branch MANUAL_REVIEW -->
+  <text x="368" y="484" class="guard">[ MANUAL_REVIEW ]</text>
+  <line class="call" x1="506" y1="502" x2="890" y2="502" marker-end="url(#s)"/>
+  <text x="514" y="496" class="msg">save(application, status = PENDING)</text>
+  <text x="514" y="516" class="note">attente validation Admin (PUT /api/credit/{id}/approve) puis accord partenaire</text>
+
+  <line x1="360" y1="530" x2="1130" y2="530" stroke="#C5B358" stroke-width="1" stroke-dasharray="4 3"/>
+
+  <!-- branch APPROVED -->
+  <text x="368" y="548" class="guard">[ APPROVED ]</text>
+  <path class="call" d="M506,560 h60 v16 h-60" marker-end="url(#s)"/>
+  <text x="572" y="568" class="msg">ensureWithinLimit · fillFinancials · generateSchedule · reserveCredit</text>
+  <line class="call" x1="506" y1="590" x2="890" y2="590" marker-end="url(#s)"/>
+  <text x="514" y="584" class="msg">save(application ACTIVE + échéancier + customer)</text>
+  <line class="call" x1="506" y1="618" x2="1075" y2="618" marker-end="url(#s)"/>
+  <text x="514" y="612" class="msg">transmet le dossier qualifié — apporteur d’affaires (§7.5)</text>
+  <line class="ret" x1="1075" y1="640" x2="506" y2="640" marker-end="url(#r)"/>
+  <text x="700" y="634" class="rmsg">accord / décaissement délégué</text>
+
+  <!-- returns -->
+  <line class="ret" x1="494" y1="678" x2="300" y2="678" marker-end="url(#r)"/>
+  <text x="308" y="672" class="rmsg">CreditApplicationResponse</text>
+  <line class="ret" x1="300" y1="704" x2="100" y2="704" marker-end="url(#r)"/>
+  <text x="108" y="698" class="rmsg">201 Created { décision, score, échéancier }</text>
+
+  <text x="30" y="742" class="cap">Note réglementaire : la plateforme score et suit le dossier ; l’octroi légal et le décaissement relèvent d’une banque/SFD agréée BCEAO (modèle apporteur d’affaires).</text>
+</svg>
